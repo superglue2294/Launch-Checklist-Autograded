@@ -42,15 +42,15 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     let fuelStatus = list.querySelector("li[id=fuelStatus]");
     let cargoStatus = list.querySelector("li[id=cargoStatus]");
     
-    if (validateInput(pilot) !== "Not a Number" || validateInput(copilot) !== "Not a Number" || validateInput(fuelLevel) !== "Is a Number" || validateInput(cargoLevel) !== "Is a Number" || Number(fuelLevel) < 0 || Number(cargoLevel) < 0) {
-        alert("Please enter valid information.");
-    }
-    
     list.style.visibility = 'visible';
     pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
     copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
 
-    if (Number(fuelLevel) < 10000 || Number(cargoLevel) > 10000) {
+    if (validateInput(pilot) !== "Not a Number" || validateInput(copilot) !== "Not a Number" || validateInput(fuelLevel) !== "Is a Number" || validateInput(cargoLevel) !== "Is a Number" || Number(fuelLevel) < 0 || Number(cargoLevel) < 0 || isNaN(fuelLevel) || isNaN(cargoLevel)) {
+        alert("Please enter valid information.");
+        list.style.visibility = 'hidden';
+        // launchStatus.innerHTML = "Awaiting Information Before Launch";
+    } else if (Number(fuelLevel) < 10000 || Number(cargoLevel) > 10000) {
         launchStatus.style.color = "red";
         launchStatus.innerHTML = "Shuttle Not Ready for Launch";
     }
